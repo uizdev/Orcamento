@@ -1,0 +1,552 @@
+/* ============================================================
+   ÁUDIO PRO - FOLHA DE ESTILOS PRINCIPAL
+   Estrutura:
+   1. Variáveis de tema (dark/light)
+   2. Reset e estilos base
+   3. Layout principal
+   4. Componentes de entrada (inputs, grupos)
+   5. Componente do calendário (Flatpickr) - centralizado e expandido
+   6. Componente de total (exibição do valor)
+   7. Botão do WhatsApp
+   8. Switch de tema (alternância claro/escuro)
+   9. Overlay (fundo escurecido)
+   10. Responsividade
+   ============================================================ */
+
+/* ============================================================
+   1. VARIÁVEIS DE TEMA
+   ============================================================ */
+:root {
+    --primary: #2ecc71;
+    --primary-rgb: 46, 204, 113;
+    --bg: #0f0f0f;
+    --card-bg: rgba(30, 30, 30, 0.8);
+    --text: #ffffff;
+    --input-bg: rgba(0, 0, 0, 0.3);
+    --input-border: #333;
+    --label: #888;
+    --sw-bg: #1a1a1a;
+    --sw-handle: #2563eb;
+    --cal-bg: rgba(45, 45, 45, 0.98);
+    --cal-text: #ffffff;
+    --cal-text-muted: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] {
+    --bg: #f5f5f7;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --text: #1d1d1f;
+    --input-bg: #ffffff;
+    --input-border: #d2d2d7;
+    --label: #6e6e73;
+    --sw-bg: #ffffff;
+    --cal-bg: rgba(255, 255, 255, 1);
+    --cal-text: #000000;
+    --cal-text-muted: rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================================
+   2. RESET E ESTILOS BASE
+   ============================================================ */
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    background-image: radial-gradient(circle at top right, rgba(var(--primary-rgb), 0.15), transparent);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    transition: background 0.5s;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ============================================================
+   3. LAYOUT PRINCIPAL
+   ============================================================ */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    padding: clamp(20px, 5vw, 40px);
+    border-radius: 28px;
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+}
+
+/* ============================================================
+   4. COMPONENTES DE ENTRADA (INPUTS E GRUPOS)
+   ============================================================ */
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 0.75em;
+    color: var(--label);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text);
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+}
+
+/* ============================================================
+   5. COMPONENTE DO CALENDÁRIO (FLATPICKR) - ESTILO MODAL
+   ============================================================ */
+
+.flatpickr-calendar {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 1000 !important;
+    margin: 0 !important;
+    background: var(--cal-bg) !important;
+    border-radius: 28px !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: var(--cal-text) !important;
+    width: 90vw !important;
+    max-width: 420px !important;
+    padding: 24px 24px 32px !important;
+    font-size: 16px !important;
+    overflow: visible !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    transform: translate(-50%, -50%) scale(0.95) !important;
+}
+
+.flatpickr-calendar.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+}
+
+/* === CABEÇALHO === */
+.flatpickr-months {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 10px 0 24px !important;
+    height: auto !important;
+}
+
+.flatpickr-month {
+    position: relative !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 !important;
+}
+
+.flatpickr-current-month {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    gap: 12px !important;
+    height: auto !important;
+    width: auto !important;
+    left: auto !important;
+}
+
+.flatpickr-monthDropdown-months {
+    color: var(--cal-text) !important;
+    background: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    border-radius: 10px !important;
+    padding: 0 12px !important;
+    height: 42px !important;
+    font-size: 1.1em !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    appearance: menulist !important;
+    box-sizing: border-box !important;
+}
+
+.flatpickr-monthDropdown-months option {
+    background: var(--cal-bg) !important;
+    color: var(--cal-text) !important;
+}
+
+.cur-year {
+    color: var(--cal-text) !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 2px solid var(--input-border) !important;
+    padding: 0 !important;
+    height: 42px !important;
+    font-size: 1.15em !important;
+    font-weight: 600 !important;
+    width: 75px !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+}
+
+/* Setas */
+.flatpickr-prev-month,
+.flatpickr-next-month {
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--cal-text) !important;
+    fill: var(--cal-text) !important;
+    width: 42px !important;
+    height: 42px !important;
+    padding: 10px !important;
+    border-radius: 50% !important;
+    transition: background 0.2s;
+    cursor: pointer !important;
+}
+
+.flatpickr-prev-month:hover,
+.flatpickr-next-month:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* === DIAS PROPORCIONAIS AO BLOCO === */
+.flatpickr-innerContainer {
+    display: block !important;
+    width: 100% !important;
+}
+
+.flatpickr-days {
+    width: 100% !important;
+    padding: 4px 0 !important;
+}
+
+/* Cabeçalho dos dias da semana */
+.flatpickr-weekdaycontainer {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px !important;
+    margin-bottom: 12px !important;
+    justify-items: center !important;
+}
+
+.flatpickr-weekday {
+    color: var(--cal-text-muted) !important;
+    font-size: 0.85em !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center !important;
+}
+
+/* Container dos dias – grid com 7 colunas iguais */
+.flatpickr-daycontainer {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 6px !important; /* Espaçamento entre células */
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-items: center !important;
+    align-items: center !important;
+}
+
+/* Cada dia ocupa 100% da largura da coluna e tem altura igual à largura (quadrado) */
+.flatpickr-day {
+    color: var(--cal-text) !important;
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important; /* Mantém o quadrado */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 15px !important;
+    border-radius: 12px !important;
+    transition: 0.15s;
+    box-sizing: border-box !important;
+    cursor: pointer;
+}
+
+.flatpickr-day:hover {
+    background: rgba(var(--primary-rgb), 0.2) !important;
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+    color: var(--cal-text-muted) !important;
+    opacity: 0.5;
+}
+
+.flatpickr-day.flatpickr-disabled {
+    color: var(--cal-text-muted) !important;
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.flatpickr-day.selected {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #052c14 !important;
+    font-weight: 800 !important;
+    transform: scale(1.05);
+}
+
+.flatpickr-day.today {
+    border: 2px solid var(--primary) !important;
+}
+
+/* ============================================================
+   6. COMPONENTE DE TOTAL
+   ============================================================ */
+.total-container {
+    background: var(--primary);
+    color: #052c14;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 25px 0;
+    transition: 0.3s;
+}
+
+#display-total {
+    font-size: 2.4em;
+    font-weight: 900;
+    display: block;
+    margin-top: 5px;
+}
+
+/* ============================================================
+   7. BOTÃO DO WHATSAPP
+   ============================================================ */
+.btn-zap {
+    background: #25d366;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 18px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.2s;
+    font-size: 16px;
+}
+
+/* ============================================================
+   8. SWITCH DE TEMA
+   ============================================================ */
+.theme-switch-wrapper {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+}
+
+.theme-switch {
+    width: 80px;
+    height: 42px;
+    background: var(--sw-bg);
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4px;
+    transition: 0.4s;
+}
+
+.switch-handle {
+    width: 34px;
+    height: 34px;
+    background: var(--sw-handle);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 4px;
+    transition: 0.4s;
+    color: white;
+}
+
+[data-theme="dark"] .switch-handle {
+    transform: translateX(38px);
+}
+
+.switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #333;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+}
+
+/* ============================================================
+   9. OVERLAY
+   ============================================================ */
+.fp-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.fp-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================================
+   10. RESPONSIVIDADE – AJUSTES FINOS
+   ============================================================ */
+@media (max-width: 480px) {
+    .card {
+        padding: 24px 20px;
+    }
+
+    .theme-switch-wrapper {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .flatpickr-calendar {
+        width: 94vw !important;
+        max-width: 360px !important;
+        padding: 16px 14px 20px !important;
+        border-radius: 20px !important;
+        font-size: 14px !important;
+    }
+
+    .flatpickr-months {
+        padding: 6px 0 16px !important;
+    }
+
+    .flatpickr-monthDropdown-months,
+    .cur-year {
+        height: 38px !important;
+        font-size: 1.05em !important;
+        padding: 0 8px !important;
+    }
+
+    .flatpickr-prev-month,
+    .flatpickr-next-month {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 8px !important;
+    }
+
+    .flatpickr-daycontainer {
+        gap: 4px !important; /* Menor espaçamento */
+    }
+
+    .flatpickr-day {
+        font-size: 13px !important;
+        border-radius: 10px !important;
+    }
+
+    .flatpickr-weekday {
+        font-size: 0.75em !important;
+    }
+}
+
+@media (max-width: 380px) {
+    .flatpickr-calendar {
+        max-width: 300px !important;
+        padding: 12px 10px 16px !important;
+    }
+
+    .flatpickr-daycontainer {
+        gap: 3px !important;
+    }
+
+    .flatpickr-day {
+        font-size: 11px !important;
+        border-radius: 8px !important;
+    }
+
+    .flatpickr-monthDropdown-months {
+        font-size: 0.85em !important;
+        padding: 2px 6px !important;
+        height: 34px !important;
+    }
+    .cur-year {
+        font-size: 0.85em !important;
+        width: 60px !important;
+        height: 34px !important;
+    }
+}

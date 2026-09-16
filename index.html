@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamentos | Áudio Pro</title>
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Flatpickr CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body data-theme="dark">
+
+    <!-- Overlay para o calendário -->
+    <div id="calendar-overlay" class="fp-overlay" onclick="fecharCalendario()"></div>
+
+    <!-- Botão de alternância de tema -->
+    <div class="theme-switch-wrapper">
+        <div class="theme-switch" onclick="toggleTheme()">
+            <div style="position: absolute; width: 100%; display: flex; justify-content: space-around; pointer-events: none; color: #888;">
+                <span>☀</span><span>☾</span>
+            </div>
+            <div class="switch-handle"><span id="active-icon">☾</span></div>
+        </div>
+    </div>
+
+    <!-- Card principal -->
+    <div class="card">
+        <h2>Cotação de Áudio</h2>
+        
+        <!-- Campo: Nome da Faixa -->
+        <div class="input-group">
+            <label>Nome da Faixa</label>
+            <input type="text" id="nome_faixa" placeholder="Ex.: Minha Música">
+        </div>
+
+        <!-- Campo: Seu Nome -->
+        <div class="input-group">
+            <label>Seu Nome</label>
+            <input type="text" id="nome_usuario" placeholder="Como podemos te chamar?">
+        </div>
+
+        <!-- Campo: Duração da Música -->
+        <div class="input-group">
+            <label>Duração da Música</label>
+            <div style="display: flex; gap: 12px;">
+                <div style="flex: 1;">
+                    <input type="number" id="min" placeholder="0" min="1" oninput="validarMinutos(this); calcular()">
+                    <span style="font-size: 10px; color: var(--label); display: block; margin-top: 6px; text-align: center;">MINUTOS</span>
+                </div>
+                <div style="flex: 1;">
+                    <input type="number" id="seg" placeholder="0" min="0" max="59" oninput="validarSegundos(this); calcular()">
+                    <span style="font-size: 10px; color: var(--label); display: block; margin-top: 6px; text-align: center;">SEGUNDOS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campo: Quantidade de Artistas -->
+        <div class="input-group">
+            <label>Quantidade de Artistas</label>
+            <input type="number" id="artistas" value="1" min="0" max="15" oninput="validarArtistas(this); calcular()">
+        </div>
+
+        <!-- Campo: Previsão de Entrega (apenas data) -->
+        <div class="input-group">
+            <label>Previsão de Entrega</label>
+            <input type="text" id="data_entrega" placeholder="Selecionar data..." readonly style="cursor: pointer;">
+        </div>
+
+        <!-- Exibição do total -->
+        <div id="box-total" class="total-container">
+            <span id="display-total">R$ 0,00</span>
+        </div>
+
+        <!-- Botão de envio -->
+        <button class="btn-zap" onclick="enviarZap()">Enviar para o WhatsApp</button>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Conexão com a planilha -->
+    <script src="db/conexao.js"></script>
+    <!-- Flatpickr JS e locale -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
+    <!-- Funções separadas -->
+    <script src="functions/js/config.js"></script>
+    <script src="functions/js/validators.js"></script>
+    <script src="functions/js/calendar.js"></script>
+    <script src="functions/js/theme.js"></script>
+    <script src="functions/js/calculator.js"></script>
+    <script src="functions/js/sender.js"></script>
+    <script src="functions/js/init.js"></script>
+</body>
+</html>
