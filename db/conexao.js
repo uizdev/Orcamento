@@ -1,2 +1,2 @@
-const urlPlanilha = 'https://script.google.com/macros/s/AKfycbwMmjnPxBb9TB_vXvofHLHEPYjXbhtMvkGgcBNSVLfSYm_G3eBdPgex29IwYpzkQjZjwg/exec';
+const urlPlanilha = 'https://script.google.com/macros/s/AKfycbxkrLGXECg_lb6HTsS0oFx1hXtDrQFjeKjiWneANaN3gZ-OMBD2n2cWyVD8ExlsTmMS2g/exec';
 window.urlPlanilha = urlPlanilha;
